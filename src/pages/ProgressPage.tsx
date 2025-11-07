@@ -5,7 +5,7 @@ import { TrendingUp, Calendar, Dumbbell, Target } from 'lucide-react';
 import { StatCard } from '@/components/StatCard';
 
 interface ProgressPageProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function ProgressPage({ onNavigate }: ProgressPageProps) {

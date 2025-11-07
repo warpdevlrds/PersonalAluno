@@ -9,7 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send } from 'lucide-react';
 
 interface MessagesPageProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function MessagesPage({ onNavigate }: MessagesPageProps) {

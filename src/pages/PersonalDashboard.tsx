@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 interface PersonalDashboardProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function PersonalDashboard({ onNavigate }: PersonalDashboardProps) {
@@ -74,7 +74,7 @@ export function PersonalDashboard({ onNavigate }: PersonalDashboardProps) {
                     key={student.id}
                     variant="outline"
                     size="sm"
-                    onClick={() => onNavigate(`/student/${student.id}`)}
+                  onClick={() => onNavigate('/student/:id', { id: student.id })}
                     className="border-neon-yellow/50 hover:bg-neon-yellow/10"
                   >
                     {student.name}
@@ -104,7 +104,7 @@ export function PersonalDashboard({ onNavigate }: PersonalDashboardProps) {
             <StudentCard
               key={student.id}
               student={student}
-              onClick={() => onNavigate(`/student/${student.id}`)}
+            onClick={() => onNavigate('/student/:id', { id: student.id })}
             />
           ))}
         </div>

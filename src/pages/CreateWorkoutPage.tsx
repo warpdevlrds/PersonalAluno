@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 import type { WorkoutExercise } from '@/types';
 
 interface CreateWorkoutPageProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function CreateWorkoutPage({ onNavigate }: CreateWorkoutPageProps) {
