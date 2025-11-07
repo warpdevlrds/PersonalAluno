@@ -17,39 +17,99 @@ interface CreateWorkoutPageProps {
 
 export function CreateWorkoutPage({ onNavigate }: CreateWorkoutPageProps) {
   const { user } = useAuth();
-  const { students, exercises } = useData();
+  const { students, exercises, addWorkout } = useData();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [studentId, setStudentId] = useState('');
+  const [dayOfWeek, setDayOfWeek] = useState('');
+  const [motivationalMessage, setMotivationalMessage] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
   const [workoutExercises, setWorkoutExercises] = useState<WorkoutExercise[]>([]);
 
   const addExercise = () => {
-    setWorkoutExercises([...workoutExercises, {
-      exerciseId: '',
-      sets: 3,
-      reps: '12',
-      rest: 60,
-      order: workoutExercises.length,
-    }]);
+    setWorkoutExercises(prev => [
+      ...prev,
+      {
+        exerciseId: '',
+        sets: 3,
+        reps: '12',
+        rest: 60,
+        order: prev.length,
+      },
+    ]);
   };
 
   const removeExercise = (index: number) => {
-    setWorkoutExercises(workoutExercises.filter((_, i) => i !== index));
+    setWorkoutExercises(prev =>
+      prev
+        .filter((_, i) => i !== index)
+        .map((exercise, order) => ({ ...exercise, order }))
+    );
   };
 
   const updateExercise = (index: number, field: keyof WorkoutExercise, value: any) => {
-    const updated = [...workoutExercises];
-    updated[index] = { ...updated[index], [field]: value };
-    setWorkoutExercises(updated);
+    setWorkoutExercises(prev => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], [field]: value };
+      return updated;
+    });
   };
 
-  const handleSave = () => {
-    if (!name || !studentId || workoutExercises.length === 0) {
+  const handleSave = async () => {
+    if (!user?.id) {
+      toast.error('Não foi possível identificar o personal logado.');
+      return;
+    }
+
+    const trimmedName = name.trim();
+    const trimmedDescription = description.trim();
+    const trimmedMotivation = motivationalMessage.trim();
+
+    if (!trimmedName || !studentId || !dayOfWeek || workoutExercises.length === 0) {
       toast.error('Preencha todos os campos obrigatórios');
       return;
     }
-    toast.success('Treino criado com sucesso!');
-    onNavigate('/students');
+
+    const hasInvalidExercise = workoutExercises.some(exercise => {
+      const hasExerciseId = Boolean(exercise.exerciseId);
+      const hasSets = Number.isFinite(exercise.sets) && exercise.sets > 0;
+      const hasReps = Boolean(String(exercise.reps).trim());
+      const restIsValid = Number.isFinite(exercise.rest) && exercise.rest >= 0;
+      return !(hasExerciseId && hasSets && hasReps && restIsValid);
+    });
+
+    if (hasInvalidExercise) {
+      toast.error('Verifique as informações de cada exercício antes de salvar.');
+      return;
+    }
+
+    setIsSaving(true);
+
+    try {
+      await Promise.resolve(
+        addWorkout({
+          name: trimmedName,
+          description: trimmedDescription || undefined,
+          studentId,
+          personalId: user.id,
+          dayOfWeek,
+          motivationalMessage: trimmedMotivation || undefined,
+          exercises: workoutExercises.map((exercise, index) => ({
+            ...exercise,
+            order: index,
+            reps: String(exercise.reps).trim(),
+          })),
+        })
+      );
+
+      toast.success('Treino criado com sucesso!');
+      onNavigate('/students');
+    } catch (error) {
+      console.error(error);
+      toast.error('Não foi possível criar o treino. Tente novamente.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -84,6 +144,33 @@ export function CreateWorkoutPage({ onNavigate }: CreateWorkoutPageProps) {
               </SelectContent>
             </Select>
           </div>
+
+          <div>
+            <Label>Dia da Semana</Label>
+            <Select value={dayOfWeek} onValueChange={setDayOfWeek}>
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione o dia" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="monday">Segunda-feira</SelectItem>
+                <SelectItem value="tuesday">Terça-feira</SelectItem>
+                <SelectItem value="wednesday">Quarta-feira</SelectItem>
+                <SelectItem value="thursday">Quinta-feira</SelectItem>
+                <SelectItem value="friday">Sexta-feira</SelectItem>
+                <SelectItem value="saturday">Sábado</SelectItem>
+                <SelectItem value="sunday">Domingo</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <Label>Mensagem Motivacional</Label>
+            <Textarea
+              value={motivationalMessage}
+              onChange={(e) => setMotivationalMessage(e.target.value)}
+              placeholder="Adicione uma mensagem inspiradora para o aluno"
+            />
+          </div>
         </div>
       </Card>
 
@@ -113,7 +200,12 @@ export function CreateWorkoutPage({ onNavigate }: CreateWorkoutPageProps) {
               </div>
               <div>
                 <Label>Séries</Label>
-                <Input type="number" value={ex.sets} onChange={(e) => updateExercise(index, 'sets', parseInt(e.target.value))} />
+                <Input
+                  type="number"
+                  value={ex.sets}
+                  min={1}
+                  onChange={(e) => updateExercise(index, 'sets', Number(e.target.value))}
+                />
               </div>
               <div>
                 <Label>Reps</Label>
@@ -121,7 +213,12 @@ export function CreateWorkoutPage({ onNavigate }: CreateWorkoutPageProps) {
               </div>
               <div>
                 <Label>Descanso (s)</Label>
-                <Input type="number" value={ex.rest} onChange={(e) => updateExercise(index, 'rest', parseInt(e.target.value))} />
+                <Input
+                  type="number"
+                  value={ex.rest}
+                  min={0}
+                  onChange={(e) => updateExercise(index, 'rest', Number(e.target.value))}
+                />
               </div>
               <div className="flex items-end">
                 <Button variant="destructive" size="icon" onClick={() => removeExercise(index)}>
@@ -134,7 +231,7 @@ export function CreateWorkoutPage({ onNavigate }: CreateWorkoutPageProps) {
       </div>
 
       <div className="flex justify-end gap-4">
-        <Button onClick={handleSave} className="btn-neon gap-2">
+        <Button onClick={handleSave} className="btn-neon gap-2" disabled={isSaving}>
           <Save className="h-4 w-4" /> Salvar Treino
         </Button>
       </div>
