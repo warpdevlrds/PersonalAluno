@@ -62,11 +62,39 @@ npm run dev
 
 ## 📦 Scripts Disponíveis
 
+### Desenvolvimento
 - `npm run dev` - Inicia o servidor de desenvolvimento
 - `npm run build` - Cria a build de produção
 - `npm run build:dev` - Cria a build de desenvolvimento
 - `npm run preview` - Visualiza a build localmente
+
+### Qualidade de Código
 - `npm run lint` - Executa a verificação de linting
+- `npm run type-check` - Verifica tipos TypeScript
+- `npm test` - Executa testes unitários
+- `npm run test:coverage` - Gera relatório de cobertura de testes
+
+### Utilitários
+- `npm run setup` - Configura o ambiente de desenvolvimento
+- `npm run generate` - Gera novos componentes/hooks/páginas
+- `npm run clean` - Limpa caches e builds
+
+### Exemplos de Uso
+
+Gerando novo componente:
+```bash
+npm run generate component Button
+```
+
+Gerando novo hook:
+```bash
+npm run generate hook WindowSize
+```
+
+Gerando nova página:
+```bash
+npm run generate page Settings
+```
 
 ## 🏗️ Estrutura do Projeto
 
