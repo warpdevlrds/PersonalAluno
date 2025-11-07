@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 84 100% 65%;
+    --primary-foreground: 240 10% 3.9%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 271 91% 65%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 84 100% 65%;
+    --radius: 1rem;
+    --neon-lime: 84 100% 65%;
+    --neon-violet: 271 91% 65%;
+    --neon-yellow: 48 100% 67%;
+    --neon-cyan: 189 94% 63%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+}
+
+@layer components {
+  .neon-glow {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+  }
+  
+  .card-glow {
+    box-shadow: 0 0 20px rgba(132, 255, 68, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card-glow:hover {
+    box-shadow: 0 0 30px rgba(132, 255, 68, 0.2), 0 0 40px rgba(132, 255, 68, 0.1);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--neon-lime)), hsl(var(--neon-violet)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    padding: 2px;
+    background: linear-gradient(135deg, hsl(var(--neon-lime)), hsl(var(--neon-violet)));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  .btn-neon {
+    @apply relative overflow-hidden font-bold transition-all duration-300;
+    @apply before:absolute before:inset-0 before:bg-gradient-to-r before:from-neon-lime before:to-neon-violet before:opacity-0 before:transition-opacity before:duration-300;
+    @apply hover:before:opacity-20;
+  }
+  
+  .status-active {
+    @apply bg-neon-lime/20 text-neon-lime border-neon-lime/50;
+  }
+  
+  .status-warning {
+    @apply bg-neon-yellow/20 text-neon-yellow border-neon-yellow/50;
+  }
+  
+  .status-inactive {
+    @apply bg-destructive/20 text-destructive border-destructive/50;
+  }
+  
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+  }
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--neon-lime) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* PWA specific */
+@media (display-mode: standalone) {
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+}

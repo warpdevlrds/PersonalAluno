@@ -1,0 +1,232 @@
+import type { Exercise, Student, Workout, Achievement } from '@/types';
+
+export const mockExercises: Exercise[] = [
+  {
+    id: '1',
+    name: 'Supino Reto',
+    description: 'Exercício fundamental para desenvolvimento do peitoral',
+    muscleGroup: 'Peitoral',
+    difficulty: 'intermediate',
+    equipment: ['Barra', 'Banco'],
+    instructions: [
+      'Deite-se no banco com os pés apoiados no chão',
+      'Segure a barra com pegada ligeiramente mais larga que os ombros',
+      'Desça a barra controladamente até o peito',
+      'Empurre a barra para cima até estender os braços',
+    ],
+    tips: [
+      'Mantenha as escápulas retraídas',
+      'Não tire o quadril do banco',
+      'Controle a respiração',
+    ],
+    commonMistakes: [
+      'Arquear demais as costas',
+      'Bater a barra no peito',
+      'Não fazer amplitude completa',
+    ],
+    isCustom: false,
+  },
+  {
+    id: '2',
+    name: 'Agachamento Livre',
+    description: 'Rei dos exercícios para membros inferiores',
+    muscleGroup: 'Pernas',
+    difficulty: 'advanced',
+    equipment: ['Barra', 'Rack'],
+    instructions: [
+      'Posicione a barra nas costas',
+      'Pés na largura dos ombros',
+      'Desça controladamente até 90 graus',
+      'Suba empurrando pelos calcanhares',
+    ],
+    tips: [
+      'Mantenha o core ativado',
+      'Joelhos alinhados com os pés',
+      'Olhar para frente',
+    ],
+    commonMistakes: [
+      'Joelhos ultrapassarem os pés',
+      'Arredondar as costas',
+      'Não atingir profundidade adequada',
+    ],
+    isCustom: false,
+  },
+  {
+    id: '3',
+    name: 'Levantamento Terra',
+    description: 'Exercício completo para posterior de corpo',
+    muscleGroup: 'Costas',
+    difficulty: 'advanced',
+    equipment: ['Barra', 'Anilhas'],
+    instructions: [
+      'Posicione-se com pés na largura do quadril',
+      'Segure a barra com pegada pronada',
+      'Mantenha costas retas e levante puxando pelo quadril',
+      'Estenda completamente o quadril no topo',
+    ],
+    tips: [
+      'Core sempre ativado',
+      'Barra próxima ao corpo',
+      'Não arredondar lombar',
+    ],
+    commonMistakes: [
+      'Puxar com as costas',
+      'Não engajar o glúteo',
+      'Barra longe do corpo',
+    ],
+    isCustom: false,
+  },
+  {
+    id: '4',
+    name: 'Desenvolvimento com Halteres',
+    description: 'Exercício para ombros com grande amplitude',
+    muscleGroup: 'Ombros',
+    difficulty: 'intermediate',
+    equipment: ['Halteres', 'Banco'],
+    instructions: [
+      'Sente-se com as costas apoiadas',
+      'Halteres na altura dos ombros',
+      'Empurre para cima até extensão completa',
+      'Desça controladamente',
+    ],
+    tips: [
+      'Não travar cotovelos no topo',
+      'Movimento sincronizado',
+      'Core estável',
+    ],
+    commonMistakes: [
+      'Arquear demais as costas',
+      'Movimento assimétrico',
+      'Amplitude incompleta',
+    ],
+    isCustom: false,
+  },
+  {
+    id: '5',
+    name: 'Rosca Direta',
+    description: 'Clássico para bíceps',
+    muscleGroup: 'Bíceps',
+    difficulty: 'beginner',
+    equipment: ['Barra'],
+    instructions: [
+      'Em pé, segure a barra com pegada supinada',
+      'Cotovelos fixos ao lado do corpo',
+      'Flexione os cotovelos levantando a barra',
+      'Desça controladamente',
+    ],
+    tips: [
+      'Não balançar o corpo',
+      'Movimento apenas dos antebraços',
+      'Contrair no topo',
+    ],
+    commonMistakes: [
+      'Usar impulso do corpo',
+      'Movimentar os cotovelos',
+      'Soltar rápido na descida',
+    ],
+    isCustom: false,
+  },
+  {
+    id: '6',
+    name: 'Tríceps Testa',
+    description: 'Isolamento de tríceps',
+    muscleGroup: 'Tríceps',
+    difficulty: 'beginner',
+    equipment: ['Barra W', 'Banco'],
+    instructions: [
+      'Deitado, braços estendidos perpendiculares ao corpo',
+      'Flexione apenas os cotovelos',
+      'Desça a barra até próximo da testa',
+      'Estenda os braços',
+    ],
+    tips: [
+      'Cotovelos fixos',
+      'Movimento controlado',
+      'Não deixar cotovelos abrirem',
+    ],
+    commonMistakes: [
+      'Movimentar os ombros',
+      'Cotovelos muito abertos',
+      'Amplitude incompleta',
+    ],
+    isCustom: false,
+  },
+];
+
+export const mockStudents: Student[] = [
+  {
+    id: '1',
+    name: 'João Silva',
+    email: 'joao@email.com',
+    age: 28,
+    level: 'intermediate',
+    goal: 'Hipertrofia',
+    status: 'active',
+    personalId: 'personal1',
+    lastWorkout: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1 day ago
+    createdAt: new Date('2024-01-15'),
+  },
+  {
+    id: '2',
+    name: 'Maria Santos',
+    email: 'maria@email.com',
+    age: 32,
+    level: 'advanced',
+    goal: 'Definição Muscular',
+    status: 'active',
+    personalId: 'personal1',
+    lastWorkout: new Date(Date.now() - 1000 * 60 * 60 * 12), // 12 hours ago
+    createdAt: new Date('2024-02-01'),
+  },
+  {
+    id: '3',
+    name: 'Pedro Costa',
+    email: 'pedro@email.com',
+    age: 24,
+    level: 'beginner',
+    goal: 'Ganho de Massa',
+    status: 'warning',
+    personalId: 'personal1',
+    lastWorkout: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3), // 3 days ago
+    createdAt: new Date('2024-03-10'),
+  },
+  {
+    id: '4',
+    name: 'Ana Oliveira',
+    email: 'ana@email.com',
+    age: 26,
+    level: 'intermediate',
+    goal: 'Emagrecimento',
+    status: 'inactive',
+    personalId: 'personal1',
+    lastWorkout: new Date(Date.now() - 1000 * 60 * 60 * 24 * 8), // 8 days ago
+    createdAt: new Date('2024-02-20'),
+  },
+];
+
+export const mockAchievements: Achievement[] = [
+  {
+    id: '1',
+    title: 'Primeira Semana Completa',
+    description: 'Completou todos os treinos da primeira semana',
+    icon: '🎯',
+    studentId: '1',
+    unlockedAt: new Date('2024-01-22'),
+  },
+  {
+    id: '2',
+    title: '10 Treinos Seguidos',
+    description: 'Manteve consistência por 10 treinos',
+    icon: '🔥',
+    studentId: '1',
+    unlockedAt: new Date('2024-02-05'),
+  },
+  {
+    id: '3',
+    title: 'Novo Recorde de Carga',
+    description: 'Superou o recorde pessoal no supino',
+    icon: '💪',
+    studentId: '2',
+    unlockedAt: new Date('2024-03-01'),
+  },
+];
