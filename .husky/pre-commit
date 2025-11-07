@@ -1,0 +1,23 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🏗️ Verificando o seu projeto antes de commitar...'
+
+# Verifica o linting
+npm run lint ||
+(
+    echo '❌ Erro de linting detectado!
+         Execute npm run lint para ver os erros.';
+    false;
+)
+
+# Verifica a tipagem
+npm run type-check ||
+(
+    echo '❌ Erro de tipagem detectado!
+         Execute npm run type-check para ver os erros.';
+    false;
+)
+
+# Se chegou até aqui, está tudo ok
+echo '✅ Código verificado com sucesso! Commitando agora...'

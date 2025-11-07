@@ -1,61 +1,233 @@
-# Welcome to your OnSpace project
+# PersonalAluno - PWA Completo
 
-## How can I edit this code?
+Uma aplicação web moderna (PWA) para gerenciamento de alunos e exercícios para personal trainers. Funciona offline, pode ser instalada como app nativo e oferece experiência completa de gerenciamento fitness.
 
-There are several ways of editing your application.
+## 🚀 Tecnologias
 
-**Use OnSpace**
+Este projeto foi desenvolvido com as seguintes tecnologias:
 
-Simply visit the [OnSpace Project]() and start prompting.
+- [Vite](https://vitejs.dev/) - Build tool e dev server
+- [React](https://react.dev/) - Biblioteca para construção de interfaces
+- [TypeScript](https://www.typescriptlang.org/) - Superset tipado do JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utility-first
+- [shadcn/ui](https://ui.shadcn.com/) - Componentes React reutilizáveis
+- [Supabase](https://supabase.com/) - Backend as a Service
+- [Stripe](https://stripe.com/) - Processamento de pagamentos
+- [React Query](https://tanstack.com/query/latest) - Gerenciamento de estado e cache
+- [React Router](https://reactrouter.com/) - Roteamento
+- [React Hook Form](https://react-hook-form.com/) - Gerenciamento de formulários
+- [Zod](https://zod.dev/) - Validação de esquemas
+- [Workbox](https://developers.google.com/web/tools/workbox) - Service Worker e PWA
 
-Changes made via OnSpace will be committed automatically to this repo.
+## 📋 Pré-requisitos
 
-**Use your preferred IDE**
+Antes de começar, você precisa ter instalado em sua máquina:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in OnSpace.
+- [Node.js](https://nodejs.org/en/) (v18 ou superior)
+- [npm](https://www.npmjs.com/)
+- Git
+- Conta no [Supabase](https://supabase.com)
+- Conta no [Stripe](https://stripe.com) (opcional)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🔧 Instalação e Execução
 
-Follow these steps:
+1. Clone o repositório:
+```bash
+git clone <url-do-repositorio>
+cd PersonalAluno
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Instale as dependências:
+```bash
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. Configure as variáveis de ambiente:
+```bash
+cp .env.example .env
+```
+Edite o arquivo `.env` com suas credenciais do Supabase e Stripe.
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. Configure o banco de dados Supabase:
+- Crie um projeto no [Supabase](https://supabase.com)
+- Execute o script SQL em `supabase-schema.sql` no SQL Editor do Supabase
+- Copie as credenciais para o arquivo `.env`
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+5. Inicie o servidor de desenvolvimento:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+6. Acesse a aplicação em [http://localhost:8080](http://localhost:8080)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📦 Scripts Disponíveis
 
-**Use GitHub Codespaces**
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Cria a build de produção
+- `npm run build:dev` - Cria a build de desenvolvimento
+- `npm run preview` - Visualiza a build localmente
+- `npm run lint` - Executa a verificação de linting
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🏗️ Estrutura do Projeto
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # Componentes React reutilizáveis
+│   ├── ui/        # Componentes base do shadcn/ui
+│   ├── layout/    # Componentes de layout (Header, Sidebar, Navigation)
+│   ├── InstallPrompt.tsx  # Prompt de instalação PWA
+│   ├── ExerciseCard.tsx
+│   ├── StudentCard.tsx
+│   └── StatCard.tsx
+├── contexts/      # Contextos React (Auth, Data)
+├── hooks/         # Hooks customizados
+│   ├── use-online.ts      # Detecção online/offline
+│   ├── use-workouts.ts    # Gerenciamento de treinos
+│   └── use-students.ts    # Gerenciamento de alunos
+├── lib/           # Utilitários e helpers
+│   ├── supabase.ts        # Cliente Supabase
+│   ├── query-client.ts    # Configuração React Query
+│   ├── storage.ts
+│   └── utils.ts
+├── pages/         # Páginas da aplicação
+│   ├── LoginPage.tsx
+│   ├── PersonalDashboard.tsx
+│   ├── StudentDashboard.tsx
+│   ├── StudentsPage.tsx
+│   ├── ExercisesPage.tsx
+│   ├── CreateWorkoutPage.tsx
+│   ├── WorkoutModePage.tsx
+│   ├── MessagesPage.tsx
+│   ├── ProgressPage.tsx
+│   ├── ProfilePage.tsx
+│   └── SubscriptionPage.tsx
+└── types/         # Definições de tipos TypeScript
+```
 
-This project is built with:
+## ✨ Funcionalidades Implementadas
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### PWA
+- ✅ Service Worker com Workbox
+- ✅ Cache offline inteligente
+- ✅ Instalação como app nativo
+- ✅ Detecção de status online/offline
+- ✅ Atualização automática
+- ✅ Manifest.json configurado
 
-## How can I deploy this project?
+### Para Personal Trainers
+- ✅ Dashboard com estatísticas
+- ✅ Gerenciamento de alunos
+- ✅ Biblioteca de exercícios
+- ✅ Criação de treinos personalizados
+- ✅ Sistema de mensagens
+- ✅ Alertas de alunos inativos
+- ✅ Planos de assinatura
 
-Simply open [OnSpace]() and click on Share -> Publish.
+### Para Alunos
+- ✅ Dashboard personalizado
+- ✅ Visualização de treinos
+- ✅ Modo de execução de treino
+- ✅ Acompanhamento de progresso
+- ✅ Gráficos de evolução
+- ✅ Sistema de conquistas
+- ✅ Chat com personal
+
+### Backend
+- ✅ Integração com Supabase
+- ✅ Autenticação segura
+- ✅ Banco de dados PostgreSQL
+- ✅ Row Level Security (RLS)
+- ✅ Storage para mídia
+- ✅ React Query para cache
+
+### Pagamentos
+- ✅ Integração Stripe preparada
+- ✅ Página de planos
+- ✅ Sistema de assinaturas
+
+## 🛠️ Desenvolvimento
+
+### Estrutura de Componentes
+
+- Os componentes reutilizáveis devem ser criados na pasta `components`
+- Componentes específicos de layout ficam em `components/layout`
+- Componentes de UI base ficam em `components/ui`
+
+### Páginas
+
+- Cada página deve ser um componente em `pages/`
+- Use o sistema de navegação interno para rotas
+
+### Estilização
+
+- Use classes Tailwind CSS para estilização
+- Siga as convenções do shadcn/ui para componentes
+- Personalizações podem ser feitas em `tailwind.config.ts`
+
+### Boas Práticas
+
+1. **TypeScript**
+   - Use tipos apropriados para props e estados
+   - Evite usar `any`
+   - Defina interfaces/types em arquivos separados
+
+2. **Componentes**
+   - Mantenha componentes pequenos e focados
+   - Use composição ao invés de herança
+   - Implemente tratamento de erros adequado
+
+3. **Estado**
+   - Use React Query para chamadas à API
+   - Contextos para estado global
+   - Estado local quando apropriado
+
+4. **Performance**
+   - Implemente memoização quando necessário
+   - Otimize renders com useMemo/useCallback
+   - Lazy load para componentes pesados
+
+## 🚀 Deploy
+
+### Vercel (Recomendado)
+```bash
+npm run build
+vercel --prod
+```
+
+### Netlify
+```bash
+npm run build
+netlify deploy --prod --dir=dist
+```
+
+## 📱 Instalação como PWA
+
+### Desktop (Chrome/Edge)
+1. Acesse a aplicação
+2. Clique no ícone de instalação na barra de endereços
+3. Ou vá em Menu > Instalar Personal & Aluno
+
+### Mobile (Android/iOS)
+1. Acesse a aplicação no navegador
+2. Android: Toque em "Adicionar à tela inicial"
+3. iOS: Toque em Compartilhar > Adicionar à Tela de Início
+
+## 🔐 Segurança
+
+- Autenticação via Supabase Auth
+- Row Level Security no banco de dados
+- HTTPS obrigatório em produção
+- Tokens JWT seguros
+- Validação de dados com Zod
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 🤝 Contribuindo
+
+1. Faça um fork do projeto
+2. Crie sua feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request

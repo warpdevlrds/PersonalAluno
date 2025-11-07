@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/lib/query-client';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { DataProvider } from '@/contexts/DataContext';
 import { Toaster } from '@/components/ui/sonner';
@@ -9,11 +11,22 @@ import { PersonalDashboard } from '@/pages/PersonalDashboard';
 import { StudentDashboard } from '@/pages/StudentDashboard';
 import { StudentsPage } from '@/pages/StudentsPage';
 import { ExercisesPage } from '@/pages/ExercisesPage';
+import { CreateWorkoutPage } from '@/pages/CreateWorkoutPage';
+import { WorkoutModePage } from '@/pages/WorkoutModePage';
+import { MessagesPage } from '@/pages/MessagesPage';
+import { ProgressPage } from '@/pages/ProgressPage';
+import { ProfilePage } from '@/pages/ProfilePage';
+import { SubscriptionPage } from '@/pages/SubscriptionPage';
+import { useOnline } from '@/hooks/use-online';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { InstallPrompt } from '@/components/InstallPrompt';
+import { WifiOff } from 'lucide-react';
 
 function AppContent() {
   const { user, isLoading } = useAuth();
   const [currentPath, setCurrentPath] = useState('/');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const isOnline = useOnline();
 
   if (isLoading) {
     return (
@@ -42,6 +55,18 @@ function AppContent() {
         return <StudentsPage onNavigate={setCurrentPath} />;
       case '/exercises':
         return <ExercisesPage />;
+      case '/create-workout':
+        return <CreateWorkoutPage onNavigate={setCurrentPath} />;
+      case '/workout-mode':
+        return <WorkoutModePage onNavigate={setCurrentPath} />;
+      case '/messages':
+        return <MessagesPage onNavigate={setCurrentPath} />;
+      case '/progress':
+        return <ProgressPage onNavigate={setCurrentPath} />;
+      case '/profile':
+        return <ProfilePage onNavigate={setCurrentPath} />;
+      case '/subscription':
+        return <SubscriptionPage onNavigate={setCurrentPath} />;
       default:
         return user.role === 'personal' ? (
           <PersonalDashboard onNavigate={setCurrentPath} />
@@ -54,6 +79,15 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-background">
       <Header onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+      
+      {!isOnline && (
+        <Alert className="m-4 border-yellow-500/50 bg-yellow-500/10">
+          <WifiOff className="h-4 w-4" />
+          <AlertDescription>
+            Você está offline. Algumas funcionalidades podem estar limitadas.
+          </AlertDescription>
+        </Alert>
+      )}
       
       <div className="flex">
         <Sidebar
@@ -75,11 +109,14 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <DataProvider>
-        <AppContent />
-        <Toaster position="top-right" />
-      </DataProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <DataProvider>
+          <AppContent />
+          <InstallPrompt />
+          <Toaster position="top-right" />
+        </DataProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }

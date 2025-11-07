@@ -8,7 +8,8 @@ import {
   BarChart3,
   User,
   Trophy,
-  Calendar
+  Calendar,
+  CreditCard
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -29,6 +30,7 @@ const navItems: NavItem[] = [
   { icon: Trophy, label: 'Conquistas', path: '/achievements', role: 'student' },
   { icon: MessageCircle, label: 'Mensagens', path: '/messages' },
   { icon: User, label: 'Perfil', path: '/profile' },
+  { icon: CreditCard, label: 'Assinatura', path: '/subscription', role: 'personal' },
 ];
 
 interface NavigationProps {
