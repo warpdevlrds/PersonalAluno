@@ -35,7 +35,7 @@ const navItems: NavItem[] = [
 
 interface NavigationProps {
   currentPath: string;
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
   className?: string;
 }
 
@@ -50,7 +50,10 @@ export function Navigation({ currentPath, onNavigate, className }: NavigationPro
     <nav className={cn('space-y-1', className)}>
       {filteredItems.map(item => {
         const Icon = item.icon;
-        const isActive = currentPath === item.path;
+        const isActive =
+          item.path === '/'
+            ? currentPath === '/'
+            : currentPath === item.path || currentPath.startsWith(`${item.path}/`);
 
         return (
           <button

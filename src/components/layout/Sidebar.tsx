@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   currentPath: string;
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
   isOpen?: boolean;
   onClose?: () => void;
 }

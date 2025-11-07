@@ -10,7 +10,7 @@ import { Camera, Save, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ProfilePageProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function ProfilePage({ onNavigate }: ProfilePageProps) {

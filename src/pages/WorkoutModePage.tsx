@@ -7,7 +7,7 @@ import { CheckCircle2, Circle, Play, Pause, SkipForward, X } from 'lucide-react'
 import { toast } from 'sonner';
 
 interface WorkoutModePageProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function WorkoutModePage({ onNavigate }: WorkoutModePageProps) {

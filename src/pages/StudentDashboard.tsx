@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Flame, Target, Trophy, Calendar, Play, CheckCircle2 } from 'lucide-react';
 
 interface StudentDashboardProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function StudentDashboard({ onNavigate }: StudentDashboardProps) {

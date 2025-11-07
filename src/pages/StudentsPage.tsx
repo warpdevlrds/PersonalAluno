@@ -25,7 +25,7 @@ import { toast } from 'sonner';
 import type { Student } from '@/types';
 
 interface StudentsPageProps {
-  onNavigate: (path: string) => void;
+  onNavigate: (path: string, params?: Record<string, string | number>) => void;
 }
 
 export function StudentsPage({ onNavigate }: StudentsPageProps) {
@@ -201,7 +201,7 @@ export function StudentsPage({ onNavigate }: StudentsPageProps) {
             <StudentCard
               key={student.id}
               student={student}
-              onClick={() => onNavigate(`/student/${student.id}`)}
+              onClick={() => onNavigate('/student/:id', { id: student.id })}
             />
           ))}
         </div>
