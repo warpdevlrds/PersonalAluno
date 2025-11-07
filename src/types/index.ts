@@ -75,6 +75,7 @@ export interface Workout {
   studentId: string;
   personalId: string;
   dayOfWeek?: string;
+  motivationalMessage?: string;
   exercises: WorkoutExercise[];
   totalVolume?: number;
   estimatedTime?: number;
